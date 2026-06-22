@@ -12,12 +12,23 @@ export default {
       },
       colors: {
         primary: {
-          DEFAULT: '#4F46E5',
-          dark: '#4338CA',
+          DEFAULT: '#FFA630', // PeerMart orange
+          dark: '#E6941A',
+          light: '#FFB84D',
         },
         secondary: {
-          DEFAULT: '#10B981',
-          dark: '#059669',
+          DEFAULT: '#A7F2B4', // PeerMart mint green
+          dark: '#8FE8A0',
+          light: '#BFF6C8',
+        },
+        neutral: {
+          DEFAULT: '#F4F4F4',
+          dark: '#E5E5E5',
+          light: '#FFFFFF',
+        },
+        accent: {
+          DEFAULT: '#FFD100', // Yellow accent
+          dark: '#E6BC00',
         },
       },
     },

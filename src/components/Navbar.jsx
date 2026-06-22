@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useAuth } from '../context/AuthContext';
+// Assuming useAuth is correctly defined in your AuthContext
+// import { useAuth } from '../context/AuthContext'; 
+
+// Placeholder for useAuth if you don't have it set up yet
+const useAuth = () => ({
+  user: null, // Set to null for logged out state, or an object { name: 'John', coins: 150, college: { name: 'University' } } for logged in
+  signOut: () => console.log('Signing out...'),
+});
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
-  const { user, signOut } = useAuth();
+  const { user, signOut } = useAuth(); // Use your actual useAuth hook
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,36 +30,39 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // **Mascot image source - placed in public folder**
+  const mascotSrc = '/mascot.png'; // Reference from the root of your public folder
+
   return (
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: 'spring', stiffness: 120, damping: 20 }}
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
+        isScrolled ? 'bg-accent shadow-md py-2' : 'bg-accent py-4'
       }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <Link to="/" className="flex items-center space-x-2">
+        {/* Left side: Navigation links */}
+        <div className="flex items-center space-x-8">
+          <NavLink to="/explore">EXPLORE</NavLink>
+          <NavLink to="/sell">SELL</NavLink>
+          <NavLink to="/buy">BUY</NavLink>
+        </div>
+
+        {/* Mascot in the center, replacing the PeerMart text/svg */}
+        <Link to="/" className="flex items-center">
           <motion.div
             whileHover={{ rotate: 10, scale: 1.1 }}
             transition={{ type: 'spring', stiffness: 300 }}
           >
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#4F46E5" />
-              <path d="M2 17L12 22L22 17V7L12 12L2 7V17Z" fill="#818CF8" fillOpacity="0.5" />
-            </svg>
+            <img src={mascotSrc} alt="Mascot" className="h-10 w-auto" /> 
           </motion.div>
-          <span className="text-xl font-display font-bold text-gray-800">PeerMart</span>
         </Link>
 
-        {/* Desktop Menu */}
+        {/* Right side: Trades, Sign In/User Menu, More */}
         <div className="hidden md:flex items-center space-x-8">
-          <NavLink to="/explore">Explore</NavLink>
-          <NavLink to="/sell">Sell</NavLink>
-          <NavLink to="/trades">Trades</NavLink>
-          <NavLink to="/messages">Messages</NavLink>
-          
+          <NavLink to="/trades">TRADES</NavLink>
           {user ? (
             <div className="flex items-center space-x-4">
               {/* Coin Balance */}
@@ -60,7 +70,7 @@ const Navbar = () => {
                 <span className="text-lg">🪙</span>
                 <span className="font-medium">{user.coins}</span>
               </div>
-              
+
               {/* User Menu */}
               <div className="relative">
                 <button
@@ -75,7 +85,7 @@ const Navbar = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
-                
+
                 {showUserMenu && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
                     <div className="px-4 py-2 text-sm text-gray-500 border-b">
@@ -114,14 +124,18 @@ const Navbar = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Link to="/login" className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors">
-                Sign In
+              <Link 
+                to="/login" 
+                className="bg-primary text-white font-bold px-4 py-2 rounded-md hover:bg-primary-dark transition-colors uppercase"
+              >
+                SIGN IN
               </Link>
             </motion.div>
           )}
+          <NavLink to="/more">MORE</NavLink>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Button (Hamburger) */}
         <div className="md:hidden">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -154,7 +168,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu (when open) */}
       {isMenuOpen && (
         <motion.div
           initial={{ opacity: 0, height: 0 }}
@@ -170,13 +184,16 @@ const Navbar = () => {
             <MobileNavLink to="/sell" onClick={() => setIsMenuOpen(false)}>
               Sell
             </MobileNavLink>
+            <MobileNavLink to="/buy" onClick={() => setIsMenuOpen(false)}>
+              Buy
+            </MobileNavLink>
             <MobileNavLink to="/trades" onClick={() => setIsMenuOpen(false)}>
               Trades
             </MobileNavLink>
-            <MobileNavLink to="/messages" onClick={() => setIsMenuOpen(false)}>
-              Messages
+            <MobileNavLink to="/more" onClick={() => setIsMenuMenu(false)}>
+              More
             </MobileNavLink>
-            
+
             {user ? (
               <>
                 <div className="flex items-center justify-between py-2 border-t border-gray-200">
@@ -207,7 +224,7 @@ const Navbar = () => {
               <Link
                 to="/login"
                 onClick={() => setIsMenuOpen(false)}
-                className="bg-indigo-600 text-white px-4 py-2 rounded-md text-center hover:bg-indigo-700 transition-colors"
+                className="bg-primary text-white font-bold px-4 py-2 rounded-md text-center hover:bg-primary-dark transition-colors uppercase"
               >
                 Sign In
               </Link>
@@ -222,10 +239,9 @@ const Navbar = () => {
 const NavLink = ({ to, children }) => (
   <Link
     to={to}
-    className="relative text-gray-700 font-medium hover:text-primary transition-colors group"
+    className="relative text-black font-bold hover:text-gray-700 transition-colors group uppercase" 
   >
     {children}
-    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
   </Link>
 );
 
@@ -233,7 +249,7 @@ const MobileNavLink = ({ to, onClick, children }) => (
   <Link
     to={to}
     onClick={onClick}
-    className="text-gray-700 font-medium py-2 hover:text-primary transition-colors"
+    className="text-gray-800 font-medium py-2 hover:text-black transition-colors" 
   >
     {children}
   </Link>

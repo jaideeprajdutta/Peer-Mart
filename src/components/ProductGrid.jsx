@@ -58,34 +58,41 @@ const ProductGrid = () => {
   };
 
   return (
-    <section className="py-16 bg-gray-50">
-      <div className="container mx-auto px-4">
+    <section className="py-20 bg-neutral-light relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0">
+        <div className="absolute top-10 left-10 w-24 h-24 bg-primary/10 rounded-full blur-xl"></div>
+        <div className="absolute bottom-10 right-10 w-32 h-32 bg-secondary/15 rounded-full blur-xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-accent/10 rounded-full blur-2xl"></div>
+      </div>
+
+      <div className="container mx-auto px-4 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center max-w-3xl mx-auto mb-12"
+          className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Discover Campus Treasures</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">Discover Campus Treasures</h2>
           <p className="text-lg text-gray-600">
             Browse the latest listings from students at your college.
           </p>
         </motion.div>
 
         {/* Search and Filter */}
-        <div className="mb-8">
-          <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
+        <div className="mb-12">
+          <div className="flex flex-col md:flex-row gap-6 justify-between items-center">
             <div className="relative w-full md:w-96">
               <input
                 type="text"
                 placeholder="Search listings..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="input pl-10"
+                className="w-full px-4 py-3 pl-12 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white shadow-sm"
               />
               <svg
-                className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2"
+                className="w-5 h-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -100,15 +107,15 @@ const ProductGrid = () => {
               </svg>
             </div>
 
-            <div className="flex overflow-x-auto py-2 gap-2 w-full md:w-auto">
+            <div className="flex overflow-x-auto py-2 gap-3 w-full md:w-auto">
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+                  className={`px-6 py-3 rounded-xl text-sm font-medium whitespace-nowrap transition-all duration-300 transform hover:scale-105 ${
                     activeCategory === category
-                      ? 'bg-indigo-600 text-white'
-                      : 'bg-white text-gray-700 hover:bg-gray-100'
+                      ? 'bg-primary text-white shadow-lg'
+                      : 'bg-white text-gray-700 hover:bg-primary/10 hover:text-primary border border-gray-200'
                   }`}
                 >
                   {category === 'all' ? 'All' : category}
@@ -121,7 +128,7 @@ const ProductGrid = () => {
         {/* Product Grid */}
         {loading ? (
           <div className="flex justify-center items-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
           </div>
         ) : (
           <motion.div
