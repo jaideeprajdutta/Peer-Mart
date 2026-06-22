@@ -124,10 +124,10 @@ const ProductCard = ({ product, userProducts, onTradeSubmit, onPurchase }) => {
       
       <div className="p-4">
         <div className="flex justify-between items-start mb-2">
-          <h3 className="font-medium text-gray-800 group-hover:text-primary transition-colors">
+          <h3 className="font-medium text-gray-800 group-hover:text-indigo-600 transition-colors">
             {product.title}
           </h3>
-          <span className="font-bold text-primary">{product.price} 🪙</span>
+          <span className="font-bold text-indigo-600">{product.price} 🪙</span>
         </div>
         
         <div className="flex items-center justify-between mb-3">
@@ -175,7 +175,7 @@ const ProductCard = ({ product, userProducts, onTradeSubmit, onPurchase }) => {
             <button
               onClick={handlePurchase}
               disabled={loading || !user || user.id === product.seller?._id}
-              className="flex-1 bg-primary text-white py-2 px-3 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+              className="flex-1 bg-indigo-600 text-white py-2 px-3 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
             >
               {loading ? 'Buying...' : 'Buy Now'}
             </button>
@@ -183,7 +183,7 @@ const ProductCard = ({ product, userProducts, onTradeSubmit, onPurchase }) => {
             {product.isForTrade && user && user.id !== product.seller?._id && (
               <button
                 onClick={() => setIsTradeModalOpen(true)}
-                className="flex-1 border border-primary text-primary py-2 px-3 rounded-md hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                className="flex-1 border border-indigo-600 text-indigo-600 py-2 px-3 rounded-md hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
               >
                 Trade
               </button>
