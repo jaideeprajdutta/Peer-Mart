@@ -80,14 +80,8 @@ const FeaturesSection = () => {
   };
 
   return (
-    <section className="py-20 bg-white relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 right-20 w-32 h-32 bg-primary/5 rounded-full blur-2xl"></div>
-        <div className="absolute bottom-20 left-20 w-40 h-40 bg-secondary/10 rounded-full blur-2xl"></div>
-      </div>
-
-      <div className="container mx-auto px-4 relative">
+    <section className="py-20 bg-white">
+      <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -95,7 +89,7 @@ const FeaturesSection = () => {
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">Why Students Love PeerMart</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Students Love PeerMart</h2>
           <p className="text-lg text-gray-600">
             Designed specifically for college communities, PeerMart makes buying and selling on campus
             safe, simple, and social.
@@ -113,17 +107,13 @@ const FeaturesSection = () => {
             <motion.div
               key={index}
               variants={itemVariants}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-primary/20"
+              className="bg-gray-50 rounded-xl p-6 hover:shadow-md transition-shadow duration-300"
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4">
                 {feature.icon}
               </div>
-              <h3 className="text-xl font-semibold mb-4 text-gray-900 group-hover:text-primary transition-colors">{feature.title}</h3>
-              <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-              
-              {/* Hover effect overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+              <p className="text-gray-600">{feature.description}</p>
             </motion.div>
           ))}
         </motion.div>
