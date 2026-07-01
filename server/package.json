@@ -1,11 +1,12 @@
 {
-  "name": "cdsc-server",
-  "version": "1.0.0",
+  "name": "peer-mart-server",
+  "version": "0.1.0",
   "type": "module",
-  "main": "index.js",
+  "main": "dist/server.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node dist/server.js",
+    "dev": "nodemon server/index.js",
+    "build": "tsc"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -16,9 +17,12 @@
     "mongoose": "^7.4.1",
     "multer": "^1.4.5-lts.1",
     "path": "^0.12.7",
-    "socket.io": "^4.7.2"
+    "socket.io": "^4.7.2",
+    "typescript": "^5.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
-  }
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.0"
+  },
+  "type": "commonjs"
 }
