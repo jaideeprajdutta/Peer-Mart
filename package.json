@@ -1,28 +1,17 @@
 {
-  "name": "cdsc",
+  "name": "peer-mart",
   "private": true,
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "axios": "^1.18.0",
-    "framer-motion": "^10.12.16",
-    "next": "^16.2.4",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-dropzone": "^14.2.3",
-    "react-router-dom": "^6.11.2",
-    "socket.io-client": "^4.7.2"
+    "dev": "concurrently "npm run server:dev" "npm run client:dev"",
+    "build": "npm run client:build && npm run server:build",
+    "server:dev": "cd server && npm run dev",
+    "server:build": "cd server && npm run build",
+    "client:dev": "cd client && npm run dev",
+    "client:build": "cd client && npm run build"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.7.0",
-    "autoprefixer": "^10.4.14",
-    "postcss": "^8.4.24",
-    "tailwindcss": "^3.3.2",
-    "vite": "^7.0.0"
+    "concurrently": "^8.0.0"
   }
 }
